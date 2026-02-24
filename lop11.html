@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Lớp 11</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<iframe src="music.html" 
+        style="display:none;" 
+        id="music-frame">
+</iframe>
+
+<header class="navbar">
+    <div class="logo">
+        <img src="logo.png" alt="Logo">
+        <span>Lưu bút trước ngày ra trường</span>
+    </div>
+    
+    <nav>
+        <a href="index.html">Trang chủ</a>
+        <a href="lop10.html">Lớp 10</a>
+        <a href="lop11.html">Lớp 11</a>
+        <a href="lop12.html">Lớp 12</a>
+        <a href="luubut.html">Lưu bút</a>
+    </nav>
+</header>
+<div class="banner">
+    <h1 span style="font-size: 60px;">Lưu bút 12A4<br>K40 THPT Krông Bông</h1>
+</div>
+
+<div class="timeline-container">
+    <h1 class="timeline-title">Lớp 11 2024-2025</h1>
+
+    <div class="timeline">
+
+        <!-- MỐC 1 -->
+        <div class="timeline-item left reveal">
+            <div class="content">
+                <h2>Kỷ niệm đầu năm</h2>
+                <div class="gallery">
+                    <img src="lop11-1.jpg">
+                    <img src="lop11-2.jpg">
+                </div>
+            <p>Lớp mất vài thành viên nhưng cũng thêm thành viên mới.</p>
+        </div>
+            </div>
+
+        <!-- MỐC 2 -->
+        <div class="timeline-item right reveal">
+            <div class="content">
+                <h2>Văn nghệ</h2>
+                <div class="gallery">
+                    <img src="lop11-3.jpg">
+                    <img src="lop11-4.jpg">
+                    <div class="video-box">
+                        <video class="popup-video" width="20" height="120">
+                            <source src="lop11-1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            <p>Nét đẹp học đường.</p>
+        </div>
+            </div>
+
+        <!-- MỐC 3 -->
+        <div class="timeline-item left reveal">
+            <div class="content">
+                <h2>Hội khoẻ phù đổng</h2>
+                <div class="video-box">
+                        <video class="popup-video" width="20" height="120">
+                            <source src="lop11-2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+            <p>Học siêu-Chơi đỉnh.</p>
+        </div>
+            </div>
+
+        <!-- MỐC 4 -->
+        <<div class="timeline-item right reveal">
+            <div class="content">
+                <h2>Ngày đặc biệt</h2>
+                <div class="gallery">
+                    <img src="lop11-5.jpg">
+                    <img src="lop11-6.jpg">
+                    <img src="lop11-7.jpg">
+                </div>
+            <p>Sinh nhật cô Khuyên kèm theo giải bóng chuyền nữ.</p>
+        </div>
+            </div>
+        <!-- Mốc 5-->
+        <<div class="timeline-item left reveal">
+            <div class="content">
+                <h2>Lao động cuối năm</h2>
+                <<div class="video-box">
+                        <video class="popup-video" width="20" height="120">
+                            <source src="lop11-3.mp4" type="video/mp4">
+                        </video>
+                    </div>
+            <p>Kết thúc hành trình lớp 11.</p>
+        </div>
+            </div>
+
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <h2>📬 Liên hệ với chúng mình</h2>
+
+        <p>📍 Trường THPT Krông Bông</p>
+        <p>Liên hệ đại diện nhóm: 0942 564 157</p>
+        <p class="copyright">
+            © 2026 – Nhóm 8 A4 K40 THPT Krông Bông
+        </p>
+    </div>
+</footer>
+
+
+<script>
+    // Animation khi cuộn
+    function revealOnScroll() {
+        const reveals = document.querySelectorAll(".reveal");
+
+        reveals.forEach(element => {
+            const windowHeight = window.innerHeight;
+            const elementTop = element.getBoundingClientRect().top;
+
+            if (elementTop < windowHeight - 100) {
+                element.classList.add("active");
+            }
+        });
+    }
+
+    window.addEventListener("scroll", revealOnScroll);
+</script>
+<div id="lightbox" class="lightbox">
+    <span class="close">&times;</span>
+    <img class="lightbox-img" id="lightbox-img">
+</div>
+<script>
+    const images = document.querySelectorAll(".gallery img");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const closeBtn = document.querySelector(".close");
+
+    images.forEach(img => {
+        img.addEventListener("click", () => {
+            lightbox.style.display = "flex";
+            lightboxImg.src = img.src;
+        });
+    });
+
+    closeBtn.addEventListener("click", () => {
+        lightbox.style.display = "none";
+    });
+
+    lightbox.addEventListener("click", (e) => {
+        if (e.target !== lightboxImg) {
+            lightbox.style.display = "none";
+        }
+    });
+</script>
+<div id="video-lightbox" class="video-lightbox">
+    <span class="video-close">&times;</span>
+    <video id="video-player" controls></video>
+</div>
+<script>
+    const popupVideos = document.querySelectorAll(".popup-video");
+    const videoLightbox = document.getElementById("video-lightbox");
+    const videoPlayer = document.getElementById("video-player");
+    const videoClose = document.querySelector(".video-close");
+
+    popupVideos.forEach(video => {
+        video.addEventListener("click", () => {
+            videoLightbox.style.display = "flex";
+            videoPlayer.src = video.querySelector("source").src;
+            videoPlayer.play();
+        });
+    });
+
+    videoClose.addEventListener("click", () => {
+        videoLightbox.style.display = "none";
+        videoPlayer.pause();
+        videoPlayer.src = "";
+    });
+
+    videoLightbox.addEventListener("click", (e) => {
+        if (e.target !== videoPlayer) {
+            videoLightbox.style.display = "none";
+            videoPlayer.pause();
+            videoPlayer.src = "";
+        }
+    });
+</script>
+</body>
+</html>
