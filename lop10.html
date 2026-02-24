@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Lớp 10</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+
+<body>
+<iframe src="music.html" 
+        style="display:none;" 
+        id="music-frame">
+</iframe>
+
+<header class="navbar">
+    <div class="logo">
+        <img src="logo.png" alt="Logo">
+        <span>Lưu bút trước ngày ra trường</span>
+    </div>
+    
+    <nav>
+        <a href="index.html">Trang chủ</a>
+        <a href="lop10.html">Lớp 10</a>
+        <a href="lop11.html">Lớp 11</a>
+        <a href="lop12.html">Lớp 12</a>
+        <a href="luubut.html">Lưu bút</a>
+    </nav>
+</header>
+
+<div class="banner">
+    <h1 span style="font-size: 60px;">Lưu bút 12A4<br>K40 THPT Krông Bông</h1>
+</div>
+<div class="timeline-container">
+    <h1 class="timeline-title">Lớp 10 2023-2024</h1>
+
+    <div class="timeline">
+
+        <!-- MỐC 1 -->
+        <div class="timeline-item left reveal">
+            <div class="content">
+                <h2>Ngày đầu nhập học</h2>
+                <div class="gallery">
+                    <img src="lop10-1.jpg">
+                </div>
+            <p>Lần đầu tiên gặp lớp mới và những người bạn mới.</p>
+        </div>
+            </div>
+
+
+        <!-- MỐC 2 -->
+        <div class="timeline-item right reveal">
+            <div class="content">
+                <span class="date"></span>
+                <h2>Biểu diễn thời trang</h2>
+                <div class="gallery">
+                    <div class="video-box">
+                        <video class="popup-video">
+                            <source src="lop10-1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+        </div>
+                </div>
+            <p>Phong cách.</p>
+        </div>
+            </div>
+
+        <!-- MỐC 3 -->
+        <div class="timeline-item left reveal">
+            <div class="content">
+                <h2>Hội trại</h2>
+                <div class="gallery">
+                    <img src="lop10-7.jpg">
+                    <img src="lop10-5.jpg">
+                    <img src="lop10-6.jpg">
+                    <div class="video-box">
+                        <video class="popup-video" width="20" height="120">
+                            <source src="lop10-2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            <p>Kỷ niệm khó phai ngày 26/3.</p>
+        </div>
+            </div>
+        <!-- MỐC 4 -->
+        <div class="timeline-item right reveal">
+            <div class="content">
+                <h2>Văn nghệ</h2>
+                <div class="gallery">
+                    <img src="lop10-2.jpg">
+                    <div class="video-box">
+                        <video class="popup-video" width="20" height="120">
+                            <source src="lop10-3.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            <p>Những buổi tập tuy vất vả nhưng rất vui.</p>
+        </div>
+            </div>
+
+
+        
+
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <h2>📬 Liên hệ với chúng mình</h2>
+
+        <p>📍 Trường THPT Krông Bông</p>
+        <p>Liên hệ đại diện nhóm: 0942 564 157</p>
+        <p class="copyright">
+            © 2026 – Nhóm 8 A4 K40 THPT Krông Bông
+        </p>
+    </div>
+</footer>
+
+
+<script>
+    // Animation khi cuộn
+    function revealOnScroll() {
+        const reveals = document.querySelectorAll(".reveal");
+
+        reveals.forEach(element => {
+            const windowHeight = window.innerHeight;
+            const elementTop = element.getBoundingClientRect().top;
+
+            if (elementTop < windowHeight - 100) {
+                element.classList.add("active");
+            }
+        });
+    }
+
+    window.addEventListener("scroll", revealOnScroll);
+</script>
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox">
+    <span class="close">&times;</span>
+    <img class="lightbox-img" id="lightbox-img">
+</div>
+<script>
+    const images = document.querySelectorAll(".gallery img");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const closeBtn = document.querySelector(".close");
+
+    images.forEach(img => {
+        img.addEventListener("click", () => {
+            lightbox.style.display = "flex";
+            lightboxImg.src = img.src;
+        });
+    });
+
+    closeBtn.addEventListener("click", () => {
+        lightbox.style.display = "none";
+    });
+
+    lightbox.addEventListener("click", (e) => {
+        if (e.target !== lightboxImg) {
+            lightbox.style.display = "none";
+        }
+    });
+</script>
+<!-- VIDEO LIGHTBOX -->
+<div id="video-lightbox" class="video-lightbox">
+    <span class="video-close">&times;</span>
+    <video id="video-player" controls></video>
+</div>
+<script>
+    const popupVideos = document.querySelectorAll(".popup-video");
+    const videoLightbox = document.getElementById("video-lightbox");
+    const videoPlayer = document.getElementById("video-player");
+    const videoClose = document.querySelector(".video-close");
+
+    popupVideos.forEach(video => {
+        video.addEventListener("click", () => {
+            videoLightbox.style.display = "flex";
+            videoPlayer.src = video.querySelector("source").src;
+            videoPlayer.play();
+        });
+    });
+
+    videoClose.addEventListener("click", () => {
+        videoLightbox.style.display = "none";
+        videoPlayer.pause();
+        videoPlayer.src = "";
+    });
+
+    videoLightbox.addEventListener("click", (e) => {
+        if (e.target !== videoPlayer) {
+            videoLightbox.style.display = "none";
+            videoPlayer.pause();
+            videoPlayer.src = "";
+        }
+    });
+</script>
+</body>
+</html>

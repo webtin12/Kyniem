@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Lưu bút trước ngày ra trường</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+       h1, h2 {
+    font-family: 'Caveat', cursive;
+}
+
+p {
+    font-family: 'Patrick Hand', cursive;
+}
+
+    </style>
+
+</head>
+
+<body>
+<audio id="bg-music" autoplay loop>
+    <source src="nhacnen.mp3" type="audio/mpeg">
+</audio>
+<script>
+const music = document.getElementById("bg-music");
+
+// 🎚 Đặt âm lượng mặc định (0.0 → 1.0)
+music.volume = 0.36;   
+
+document.addEventListener("click", () => {
+    music.play();
+}, { once: true });
+</script>
+<script>
+const music = document.getElementById("bg-music");
+
+// phát khi người dùng tương tác lần đầu
+document.addEventListener("click", () => {
+    music.play();
+}, { once: true });
+</script>
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="logo">
+        <img src="logo.png" alt="Logo">
+        <span>Lưu bút trước ngày ra trường</span>
+    </div>
+    <button id="music-btn">🎵</button>
+    <nav>
+        <a href="index.html">Trang chủ</a>
+        <a href="lop10.html">Lớp 10</a>
+        <a href="lop11.html">Lớp 11</a>
+        <a href="lop12.html">Lớp 12</a>
+        <a href="luubut.html">Lưu bút</a>
+    </nav>
+</header>
+
+<!-- BANNER -->
+<div class="banner">
+    <h1 span style="font-size: 60px;">Lưu bút 12A4<br>K40 THPT Krông Bông</h1>
+</div>
+
+<!-- CONTENT -->
+<div class="container" id="clb">
+
+    <a href="lop10.html" class="section">
+        <div class="text">
+            <h2>Lớp 10</h2>
+            <p>Những ngày tháng mở đầu cho một hành trình mới, vừa bỡ ngỡ vừa đầy kỷ niệm. Đó là lúc chúng ta gặp gỡ những người bạn mới, cùng nhau học tập, vui chơi và trưởng thành từng chút một. Thời gian trôi qua có thể nhanh, nhưng những cảm xúc trong trẻo và tình bạn hình thành trong năm học ấy sẽ luôn là một phần ký ức đẹp khó quên.</p>
+        </div>
+        <div class="image">
+            <img src="lop10.jpg">
+        </div>
+    </a>
+
+    <a href="lop11.html" class="section reverse">
+        <div class="text">
+            <h2>Lớp 11</h2>
+            <p>Chúng ta dần trưởng thành hơn, biết suy nghĩ và cố gắng nhiều hơn cho tương lai. Những ngày học tập có thể bận rộn, áp lực hơn, nhưng cũng là lúc tình bạn trở nên gắn bó và sâu sắc. Lớp 11 không quá ồn ào, cũng chưa vội chia xa, mà lặng lẽ lưu giữ những kỷ niệm bình dị nhưng đầy ý nghĩa của tuổi học trò.</p>
+        </div>
+        <div class="image">
+            <img src="lop11.jpg">
+        </div>
+    </a>
+
+    <a href="lop12.html" class="section">
+        <div class="text">
+            <h2>Lớp 12</h2>
+            <p>Chặng cuối của tuổi học trò, nơi chứa đựng nhiều cảm xúc nhất. Đó là những ngày vừa cố gắng cho tương lai, vừa lặng lẽ trân trọng từng khoảnh khắc còn được ở bên thầy cô và bạn bè. Dù có áp lực và lo lắng, lớp 12 vẫn là khoảng thời gian đáng nhớ, khép lại thanh xuân bằng những kỷ niệm khó phai.</p>
+        </div>
+        <div class="image">
+            <img src="lop12.jpg">
+        </div>
+    </a>
+
+</div>
+<script>
+function createLeaf() {
+    const leaf = document.createElement("img");
+    leaf.src = "leaf.png"; 
+    leaf.classList.add("leaf");
+
+    leaf.style.left = Math.random() * 100 + "vw";
+
+    const fallDuration = 5 + Math.random() * 5;
+    const swayDuration = 3 + Math.random() * 3;
+
+    leaf.style.animationDuration = fallDuration + "s, " + swayDuration + "s";
+
+    leaf.style.animationDelay = Math.random() * 5 + "s";
+
+    document.body.appendChild(leaf);
+}
+
+for (let i = 0; i < 15; i++) {
+    createLeaf();
+}
+</script>
+
+
+<footer class="footer">
+    <div class="footer-content">
+        <h2>📬 Liên hệ với chúng mình</h2>
+
+        <p>📍 Trường THPT Krông Bông</p>
+        <p>Liên hệ đại diện nhóm: 0942 564 157</p>
+        <p class="copyright">
+            © 2026 – Nhóm 8 A4 K40 THPT Krông Bông
+        </p>
+    </div>
+</footer>
+
+
+</body>
+</html>
