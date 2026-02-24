@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Lưu Bút A4 K40</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+
+body {
+    margin: 0;
+    padding: 40px;
+    background: #fdf6e3;
+    font-family: 'Patrick Hand', cursive;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    font-size: 48px;
+}
+
+.form-box {
+    max-width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input, textarea, select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 18px;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    background: #ffb6b9;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+#signature-pad {
+    border: 2px dashed #999;
+    background: white;
+    border-radius: 8px;
+    width: 100%;
+    height: 150px;
+    cursor: crosshair;
+}
+
+.notes {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.note {
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
+    animation: fadeIn 0.5s ease;
+}
+
+.note h3 {
+    margin: 0 0 10px;
+    font-family: 'Caveat', cursive;
+}
+
+.signature-img {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.delete-btn {
+    margin-top: 10px;
+    background: #ff6b6b;
+    color: white;
+    font-size: 14px;
+    padding: 5px 8px;
+}
+
+.music-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+<header class="navbar">
+    <div class="logo">
+        <button class="music-btn" onclick="toggleMusic()">🎵</button>
+    </div>
+    <nav style="font-size: 29px;">
+        <a href="index.html">Trang chủ</a>
+    </nav>
+</header>
+
+<h1>📖 Lưu Bút A4 K40</h1>
+
+<div class="form-box">
+    <input type="text" id="name" placeholder="Tên của bạn">
+    <textarea id="message" rows="4" placeholder="Viết lời nhắn..."></textarea>
+
+    <select id="color">
+        <option value="#fff9c4">Vàng nhạt</option>
+        <option value="#c8e6c9">Xanh lá</option>
+        <option value="#bbdefb">Xanh dương</option>
+        <option value="#f8bbd0">Hồng</option>
+    </select>
+
+    <label>Ký tên ✍️</label>
+    <canvas id="signature-pad"></canvas>
+    <button type="button" onclick="clearSignature()">Xóa chữ ký</button>
+
+    <button onclick="addNote()">Gửi lưu bút ✨</button>
+</div>
+
+<div class="notes" id="notes"></div>
+
+<!-- Nhạc nền -->
+<audio id="bg-music" loop>
+    <source src="nhacnen.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* =======================
+   NHẠC NỀN
+======================= */
+const music = document.getElementById("bg-music");
+music.volume = 0.3;
+
+document.addEventListener("click", () => {
+    music.play().catch(()=>{});
+}, { once: true });
+
+function toggleMusic() {
+    if (music.paused) {
+        music.play();
+    } else {
+        music.pause();
+    }
+}
+
+/* =======================
+   CHỮ KÝ CANVAS
+======================= */
+const canvas = document.getElementById("signature-pad");
+const ctx = canvas.getContext("2d");
+
+canvas.width = canvas.offsetWidth;
+canvas.height = canvas.offsetHeight;
+
+let drawing = false;
+
+canvas.addEventListener("mousedown", () => drawing = true);
+canvas.addEventListener("mouseup", () => {
+    drawing = false;
+    ctx.beginPath();
+});
+canvas.addEventListener("mousemove", draw);
+
+canvas.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    drawing = true;
+});
+canvas.addEventListener("touchend", () => {
+    drawing = false;
+    ctx.beginPath();
+});
+canvas.addEventListener("touchmove", drawTouch);
+
+function draw(e) {
+    if (!drawing) return;
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "black";
+
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(e.offsetX, e.offsetY);
+}
+
+function drawTouch(e) {
+    if (!drawing) return;
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches[0];
+
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
+
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "black";
+
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+}
+
+function clearSignature() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+/* =======================
+   LƯU BÚT
+======================= */
+let notesContainer = document.getElementById("notes");
+
+window.onload = function() {
+    let savedNotes = JSON.parse(localStorage.getItem("luubut")) || [];
+    savedNotes.forEach(note => createNote(note));
+};
+
+function addNote() {
+    let name = document.getElementById("name").value;
+    let message = document.getElementById("message").value;
+    let color = document.getElementById("color").value;
+    let signatureData = canvas.toDataURL();
+
+    if (name === "" || message === "") {
+        alert("Vui lòng nhập đầy đủ thông tin!");
+        return;
+    }
+
+    let noteData = { name, message, color, signature: signatureData };
+
+    createNote(noteData);
+    saveNote(noteData);
+
+    document.getElementById("name").value = "";
+    document.getElementById("message").value = "";
+    clearSignature();
+}
+
+function createNote(data) {
+    let note = document.createElement("div");
+    note.className = "note";
+    note.style.background = data.color;
+
+    note.innerHTML = `
+        <h3>${data.name}</h3>
+        <p>${data.message}</p>
+        <img src="${data.signature}" class="signature-img">
+        <button class="delete-btn">Xóa</button>
+    `;
+
+    note.querySelector(".delete-btn").onclick = function() {
+        note.remove();
+        deleteNote(data);
+    };
+
+    notesContainer.appendChild(note);
+}
+
+function saveNote(note) {
+    let savedNotes = JSON.parse(localStorage.getItem("luubut")) || [];
+    savedNotes.push(note);
+    localStorage.setItem("luubut", JSON.stringify(savedNotes));
+}
+
+function deleteNote(noteToDelete) {
+    let savedNotes = JSON.parse(localStorage.getItem("luubut")) || [];
+    savedNotes = savedNotes.filter(note =>
+        !(note.name === noteToDelete.name && note.message === noteToDelete.message)
+    );
+    localStorage.setItem("luubut", JSON.stringify(savedNotes));
+}
+</script>
+<footer class="footer">
+    <div class="footer-content">
+        <h2>📬 Liên hệ với chúng mình</h2>
+
+        <p>📍 Trường THPT Krông Bông</p>
+        <p>Liên hệ đại diện nhóm: 0942 564 157</p>
+        <p class="copyright">
+            © 2026 – Nhóm 8 A4 K40 THPT Krông Bông
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>

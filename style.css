@@ -1,0 +1,496 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f4f4f4;
+    color: #333;
+}
+
+/* ===== NAVBAR GLASS EFFECT ===== */
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+
+    background: rgba(0, 0, 0, 0.6);   /* nền trong suốt */
+    backdrop-filter: blur(10px);      /* hiệu ứng mờ */
+    -webkit-backdrop-filter: blur(10px);
+
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+}
+/* LOGO */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+    transition: transform 0.5s ease;
+}
+
+/* Hover xoay nhẹ */
+.logo img:hover {
+    transform: rotate(15deg) scale(1.1);
+}
+
+
+
+.navbar .logo {
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.navbar nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.navbar nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    position: relative;
+    transition: 0.3s;
+}
+
+.navbar nav a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: white;
+    bottom: -5px;
+    left: 0;
+    transition: 0.3s;
+}
+
+.navbar nav a:hover::after {
+    width: 100%;
+}
+
+
+.banner {
+    height: 400px;
+    background: url("banner.jpg") center/cover no-repeat;
+    position: relative;
+}
+
+.banner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+}
+
+.banner h1 {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 36px;
+    z-index: 1;
+    text-align: center;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.section {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 80px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.section.reverse {
+    flex-direction: row-reverse;
+}
+
+.section:hover img {
+    transform: scale(1.05);
+}
+
+.text {
+    flex: 1;
+}
+
+.text h2 {
+    font-size: 26px;
+    margin-bottom: 15px;
+}
+
+.text p {
+    color: #555;
+    line-height: 1.7;
+}
+
+.image {
+    flex: 1;
+}
+
+.image img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+footer {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+@media (max-width: 768px) {
+    .section,
+    .section.reverse {
+        flex-direction: column;
+    }
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.leaf {
+    position: fixed;
+    top: -50px;
+    width: 40px;
+    pointer-events: none;
+    z-index: 999;
+
+    animation-name: fall, sway;
+    animation-timing-function: linear, ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(55vh) rotate(180deg);
+    }
+    100% {
+        transform: translateY(110vh) rotate(420deg);
+    }
+}
+@keyframes sway {
+    0% { margin-left: 0; }
+    50% { margin-left: 40px; }
+    100% { margin-left: 0; }
+}
+/* ===== TIMELINE ===== */
+
+.timeline-container {
+    max-width: 1000px;
+    margin: 80px auto;
+    padding: 0 20px;
+}
+
+.timeline-title {
+    text-align: center;
+    margin-bottom: 60px;
+    font-size: 32px;
+}
+
+.timeline {
+    position: relative;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: #ccc;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    padding: 20px 40px;
+    position: relative;
+    width: 50%;
+}
+
+.timeline-item.left { left: 0; }
+.timeline-item.right { left: 50%; }
+
+.timeline-item .content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: 0.4s;
+}
+
+.timeline-item .content img {
+    width: 100%;
+    margin: 15px 0;
+    border-radius: 6px;
+}
+
+.date {
+    font-size: 13px;
+    color: #888;
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: #111;
+    border-radius: 50%;
+    top: 30px;
+    right: -9px;
+    z-index: 1;
+}
+
+.timeline-item.right::before {
+    left: -9px;
+}
+
+/* ===== ANIMATION ===== */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .timeline::after {
+        left: 20px;
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: 60px;
+        padding-right: 20px;
+    }
+
+    .timeline-item.right {
+        left: 0;
+    }
+
+    .timeline-item::before {
+        left: 11px;
+    }
+}
+
+/* Toàn trang */
+body {
+    font-family: 'Quicksand', sans-serif;
+    line-height: 1.9;
+    letter-spacing: 0.4px;
+    color: #444;
+    background-color: #fdfaf6; /* màu giấy */
+}
+
+/* Tiêu đề viết tay */
+h1, h2 {
+    font-family: 'Dancing Script', cursive;
+    font-weight: 1000;
+    font-size: 30px;
+    color: #5a3e36;
+}
+
+/* Nội dung giống chữ viết */
+p {font-family: 'Dancing Script', cursive;
+    font-size: 30px;
+    font-weight: 400;
+    color: #5c4b46;
+}
+
+/* Navbar chữ nhẹ hơn */
+.navbar nav a {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+}
+/* ===== GALLERY ẢNH TRONG TIMELINE ===== */
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.gallery img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+/* Hover nhẹ */
+.gallery img:hover {
+    transform: scale(1.08);
+}
+/* ===== LIGHTBOX ===== */
+
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox-img {
+    max-width: 85%;
+    max-height: 85%;
+    border-radius: 10px;
+    animation: zoomIn 0.3s ease;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+/* ===== VIDEO TRONG TIMELINE ===== */
+
+.video-box {
+    margin: 15px 0;
+}
+
+.video-box video {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+/* ===== VIDEO LIGHTBOX ===== */
+
+.video-lightbox {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+}
+
+#video-player {
+    max-width: 85%;
+    max-height: 85%;
+    border-radius: 12px;
+    animation: zoomVideo 0.3s ease;
+}
+
+.video-close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+@keyframes zoomVideo {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* làm video nhỏ nhìn giống ảnh */
+.video-box video {
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.video-box video:hover {
+    transform: scale(1.03);
+}
+#music-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: white;
+    cursor: pointer;
+}
+
+.footer {
+    margin-top: 80px;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 40px 20px;
+    text-align: center;
+    border-top: 2px dashed #ccc;
+}
+
+.footer h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.footer p {
+    margin: 5px 0;
+    font-size: 18px;
+}
+
+
+copyright {
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+    opacity: 0.7;
+}
